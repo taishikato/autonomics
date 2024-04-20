@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
+import { revalidatePath } from "next/cache";
 
 export const updateTestSettings = async (
   formData: FormData,
@@ -28,7 +29,7 @@ export const updateTestSettings = async (
       message: testUpdateError.message,
     };
 
-  // const {} = await supabase.from("patterns").insert
+  revalidatePath(`/dashboard/tests/${testId}`);
 
   return {
     status: "success",
