@@ -5,6 +5,14 @@ import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { StartTestForm } from "./_components/start-test-form";
 import { PauseTestForm } from "./_components/pause-test-form";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 export default async function TestsPage({
   params,
@@ -15,7 +23,7 @@ export default async function TestsPage({
   const { data, error: fetchTestError } = await supabase
     .from("tests")
     .select(
-      "id, name, description, purpose, is_on, patterns (is_default, text)"
+      "id, name, description, purpose, is_on, patterns (id, text, click_count)"
     )
     .match({
       id: params.id,
@@ -93,6 +101,39 @@ export default async function TestsPage({
           <StartTestForm testId={data[0].id} />
         )}
       </div>
+      {data[0].patterns.length > 0 && (
+        <>
+          <div className="font-semibold text-base md:text-lg mt-6">
+            Test patterns
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Text</TableHead>
+                <TableHead>Click count</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data[0].patterns.map((pattern) => {
+                return (
+                  <TableRow key={pattern.id}>
+                    <TableCell>
+                      <div className="font-lg flex items-center">
+                        {pattern.text}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="font-lg flex items-center">
+                        {pattern.click_count}
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </>
+      )}
     </>
   );
 }

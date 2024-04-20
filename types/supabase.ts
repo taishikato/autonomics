@@ -11,23 +11,23 @@ export type Database = {
     Tables: {
       patterns: {
         Row: {
+          click_count: number | null
           created_at: string
           id: string
-          is_default: boolean
           test_id: string | null
           text: string | null
         }
         Insert: {
+          click_count?: number | null
           created_at?: string
           id?: string
-          is_default?: boolean
           test_id?: string | null
           text?: string | null
         }
         Update: {
+          click_count?: number | null
           created_at?: string
           id?: string
-          is_default?: boolean
           test_id?: string | null
           text?: string | null
         }
