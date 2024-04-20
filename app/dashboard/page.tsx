@@ -17,7 +17,7 @@ export default async function DashboardPage() {
   const { data: tests, error } = await supabase
     .from("tests")
     .select("id, name")
-    .match({ user_id: user.id })
+    .match({ user_id: user.id, is_deleted: false })
     .order("created_at", { ascending: false });
 
   if (error) {
