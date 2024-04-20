@@ -1,8 +1,8 @@
-import { Button, buttonVariants } from "@/components/ui/button";
-import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Pencil } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { StartTestForm } from "./_components/start-test-form";
 
 export default async function TestsPage({
@@ -46,35 +46,48 @@ export default async function TestsPage({
           <Pencil className="size-5" />
         </Link>
       </div>
-      <div className="space-y-2">
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          ID
+      <div className="border rounded-xl p-4 space-y-8">
+        <div className="space-y-2">
+          <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            ID
+          </div>
+          <div>{params.id}</div>
         </div>
-        <div>{params.id}</div>
-      </div>
-      <div className="space-y-2">
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Description
+        <div className="space-y-2">
+          <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Description
+          </div>
+          <div>
+            {data[0].description && data[0].description.length > 0
+              ? data[0].description
+              : "No description"}
+          </div>
         </div>
-        <div>
-          {data[0].description && data[0].description.length > 0
-            ? data[0].description
-            : "No description"}
+
+        <div className="space-y-2">
+          <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Purpose
+          </div>
+          <div>
+            {data[0].purpose && data[0].purpose.length > 0
+              ? data[0].purpose
+              : "No purpose for this test yet"}
+          </div>
         </div>
       </div>
 
-      <div className="space-y-2">
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Purpose
+      <div className="space-y-5">
+        <div className="space-y-2">
+          <div className="font-bold text-base md:text-xl">
+            Let's start testing!
+          </div>
+          <div className="text-muted-foreground">
+            When you click the button below, we're gonna generate 2 texts for
+            your CTA button.
+          </div>
         </div>
-        <div>
-          {data[0].purpose && data[0].purpose.length > 0
-            ? data[0].purpose
-            : "No purpose for this test yet"}
-        </div>
+        <StartTestForm testId={data[0].id} />
       </div>
-
-      <StartTestForm testId={data[0].id} />
     </>
   );
 }

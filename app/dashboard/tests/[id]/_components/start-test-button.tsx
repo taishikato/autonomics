@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Loader } from "lucide-react";
+import { Loader, WandSparkles } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 export const StartTestButton = () => {
@@ -14,7 +14,11 @@ export const StartTestButton = () => {
       disabled={pending}
       aria-disabled={pending}
     >
-      {pending && <Loader className="size-4 mr-2 animate-spin" />}
+      {pending ? (
+        <Loader className="size-4 mr-2 animate-spin" />
+      ) : (
+        <WandSparkles className="size-4 mr-2" />
+      )}
       Start testing
     </Button>
   );
