@@ -1,7 +1,7 @@
 "use client";
 
 import type { Tables } from "@/types/supabase";
-import { Plus } from "lucide-react";
+import { Plus, MoveRight } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -64,7 +64,10 @@ export const TestListTable = ({
                   }}
                 >
                   <TableCell>
-                    <div className="font-medium">{test.name}</div>
+                    <div className="font-lg flex items-center">
+                      {test.name}
+                      <MoveRight className="size-4 ml-2" />
+                    </div>
                   </TableCell>
                 </TableRow>
               );
