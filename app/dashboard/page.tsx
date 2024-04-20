@@ -5,6 +5,7 @@ import { TestListTable } from "./_components/test-list-table";
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
+import { SaveProjectForm } from "./_components/save-project-form";
 
 export default async function DashboardPage() {
   const supabase = createClient();
@@ -13,6 +14,15 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
 
   if (!user) redirect("/login");
+
+  const { data: project } = await supabase
+    .from("projects")
+    .select("website_description")
+    .match({
+      user_id: user.id,
+    });
+
+  if (!project) redirect("/login");
 
   const { data: tests, error } = await supabase
     .from("tests")
@@ -30,6 +40,9 @@ export default async function DashboardPage() {
       <div className="flex items-center">
         <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
       </div>
+
+      <SaveProjectForm project={project[0]} />
+
       {tests.length > 0 ? (
         <>
           <Dialog>

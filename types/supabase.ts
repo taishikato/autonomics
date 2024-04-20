@@ -41,6 +41,35 @@ export type Database = {
           },
         ]
       }
+      projects: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string
+          website_description: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id?: string
+          website_description?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string
+          website_description?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "public_projects_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       tests: {
         Row: {
           created_at: string
