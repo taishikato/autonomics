@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CreateTestButton } from "./create-test-button";
 import { toast } from "sonner";
-import { redirect } from "next/navigation";
 
 export const CreateTestForm = () => {
   return (
@@ -27,8 +26,6 @@ export const CreateTestForm = () => {
         toast.success("A new test is created successfully.", {
           duration: 5000,
         });
-
-        redirect(`/dashboard/tests/${result.testId}`);
       }}
     >
       <DialogHeader>

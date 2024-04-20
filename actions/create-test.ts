@@ -2,6 +2,7 @@
 
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const createTest = async (formData: FormData) => {
   const name = formData.get("name") as string | null;
@@ -28,8 +29,5 @@ export const createTest = async (formData: FormData) => {
 
   revalidatePath("/dashboard");
 
-  return {
-    status: "success",
-    testId: data.id,
-  };
+  redirect(`/dashboard/tests/${data.id}`);
 };
