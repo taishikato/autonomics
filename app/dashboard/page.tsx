@@ -6,6 +6,7 @@ import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import { SaveProjectForm } from "./_components/save-project-form";
+import { Plus } from "lucide-react";
 
 export default async function DashboardPage() {
   const supabase = createClient();
@@ -44,17 +45,7 @@ export default async function DashboardPage() {
       <SaveProjectForm project={project[0]} />
 
       {tests.length > 0 ? (
-        <>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button className="mt-4 self-start mb-4">Add Test</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <CreateTestForm />
-            </DialogContent>
-          </Dialog>
-          <TestListTable tests={tests} />
-        </>
+        <TestListTable tests={tests} />
       ) : (
         <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
           <div className="flex flex-col items-center gap-1 text-center">
@@ -66,7 +57,10 @@ export default async function DashboardPage() {
             </p>
             <Dialog>
               <DialogTrigger asChild>
-                <Button className="mt-4">Add Test</Button>
+                <Button className="mt-4">
+                  <Plus className="size-4 mr-2" />
+                  Add Test
+                </Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <CreateTestForm />

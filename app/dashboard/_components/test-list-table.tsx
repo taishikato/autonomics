@@ -1,6 +1,7 @@
 "use client";
 
 import type { Tables } from "@/types/supabase";
+import { Plus } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -16,7 +17,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { CreateTestForm } from "./create-test-form";
 
 export const TestListTable = ({
   tests,
@@ -32,6 +36,17 @@ export const TestListTable = ({
         <CardDescription>A list of the tests you created.</CardDescription>
       </CardHeader>
       <CardContent>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button className="mb-5" variant="secondary">
+              <Plus className="size-4 mr-2" />
+              Add Test
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <CreateTestForm />
+          </DialogContent>
+        </Dialog>
         <Table>
           <TableHeader>
             <TableRow>
