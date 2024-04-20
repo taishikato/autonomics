@@ -16,12 +16,23 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { MemoLogoutForm } from "./_components/logout-form";
+import { createClient } from "@/utils/supabase/createServerSupabaseClient";
+import { redirect } from "next/navigation";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient();
+  await supabase.auth.getUser();
+  // update session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) redirect("/login");
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">

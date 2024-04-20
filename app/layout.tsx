@@ -3,8 +3,6 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { createClient } from "@/utils/supabase/createServerSupabaseClient";
-import { redirect } from "next/navigation";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,15 +24,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createClient();
-  await supabase.auth.getUser();
-  // update session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session) redirect("/login");
-
   return (
     <html lang="en" className="">
       <body
