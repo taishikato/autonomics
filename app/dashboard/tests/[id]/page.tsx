@@ -47,7 +47,7 @@ export default async function TestsPage({
           <Pencil className="size-5" />
         </Link>
       </div>
-      <div className="border rounded-xl p-4 space-y-8">
+      <div className="border rounded-xl p-6 space-y-8">
         <div className="space-y-2">
           <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             ID
