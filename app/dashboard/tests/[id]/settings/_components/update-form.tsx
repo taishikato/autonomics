@@ -15,6 +15,7 @@ type TestWithPatterns = {
   id: string;
   name: string;
   description: string | null;
+  purpose: string | null;
   patterns: {
     id: string;
     is_default: boolean;
@@ -56,6 +57,17 @@ export const UpdateForm = ({ test }: { test: TestWithPatterns }) => {
             Description
           </Label>
           <Textarea defaultValue={test.description ?? ""} name="description" />
+        </div>
+
+        <div className="space-y-2">
+          <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+            Purpose
+          </Label>
+          <Textarea
+            defaultValue={test.purpose ?? ""}
+            name="purpose"
+            placeholder="This CTA button aims to get as many signups as possible."
+          />
         </div>
 
         <SubmitButton />

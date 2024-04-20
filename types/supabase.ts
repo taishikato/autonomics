@@ -77,6 +77,7 @@ export type Database = {
           id: string
           is_deleted: boolean
           name: string
+          purpose: string | null
           user_id: string
         }
         Insert: {
@@ -85,6 +86,7 @@ export type Database = {
           id?: string
           is_deleted?: boolean
           name?: string
+          purpose?: string | null
           user_id?: string
         }
         Update: {
@@ -93,6 +95,7 @@ export type Database = {
           id?: string
           is_deleted?: boolean
           name?: string
+          purpose?: string | null
           user_id?: string
         }
         Relationships: [

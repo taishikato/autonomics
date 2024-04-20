@@ -9,7 +9,7 @@ export const updateTestSettings = async (
 ) => {
   const name = formData.get("name") as string | null;
   const description = formData.get("description") as string | null;
-  const defaultValue = formData.get("default_value") as string;
+  const purpose = formData.get("purpose") as string;
 
   if (!name)
     return {
@@ -20,7 +20,7 @@ export const updateTestSettings = async (
   const supabase = createClient();
   const { error: testUpdateError } = await supabase
     .from("tests")
-    .update({ name, description })
+    .update({ name, description, purpose })
     .match({ id: testId });
 
   if (testUpdateError)
