@@ -1,8 +1,7 @@
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { redirect } from "next/navigation";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import { createAdminClient } from "@/utils/supabase/createAdminSupabaseClient";
+import { Hero } from "./_components/hero";
 
 export default async function Index() {
   const supabase = createClient();
@@ -32,11 +31,5 @@ export default async function Index() {
     return redirect("/dashboard");
   }
 
-  return (
-    <div>
-      <Link href="/login" className={buttonVariants()}>
-        Login
-      </Link>
-    </div>
-  );
+  return <Hero />;
 }
