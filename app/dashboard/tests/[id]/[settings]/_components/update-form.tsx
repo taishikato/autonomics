@@ -58,18 +58,6 @@ export const UpdateForm = ({ test }: { test: TestWithPatterns }) => {
           <Textarea defaultValue={test.description ?? ""} name="description" />
         </div>
 
-        <div className="space-y-2">
-          <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Default value*
-          </Label>
-          <Input
-            defaultValue={test.patterns.find((p) => p.is_default)?.text ?? ""}
-            name="default_value"
-            required
-            placeholder="Try it for free"
-          />
-        </div>
-
         <SubmitButton />
       </form>
       <Separator />

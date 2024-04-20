@@ -52,17 +52,6 @@ export default async function TestsPage({
             : "No description"}
         </div>
       </div>
-
-      <div className="space-y-2">
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-          Default value
-        </div>
-        <div>
-          {data[0].patterns.find((p) => p.is_default)
-            ? data[0].patterns.find((p) => p.is_default)?.text
-            : "No default value"}
-        </div>
-      </div>
     </>
   );
 }
