@@ -4,6 +4,7 @@ import { Pencil } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { StartTestForm } from "./_components/start-test-form";
+import { PauseTestForm } from "./_components/pause-test-form";
 
 export default async function TestsPage({
   params,
@@ -86,7 +87,11 @@ export default async function TestsPage({
             your CTA button.
           </div>
         </div>
-        <StartTestForm testId={data[0].id} />
+        {data[0].is_on ? (
+          <PauseTestForm testId={data[0].id} />
+        ) : (
+          <StartTestForm testId={data[0].id} />
+        )}
       </div>
     </>
   );
