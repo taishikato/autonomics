@@ -76,6 +76,7 @@ export type Database = {
           description: string | null
           id: string
           is_deleted: boolean
+          is_on: boolean
           name: string
           purpose: string | null
           user_id: string
@@ -85,6 +86,7 @@ export type Database = {
           description?: string | null
           id?: string
           is_deleted?: boolean
+          is_on?: boolean
           name?: string
           purpose?: string | null
           user_id?: string
@@ -94,6 +96,7 @@ export type Database = {
           description?: string | null
           id?: string
           is_deleted?: boolean
+          is_on?: boolean
           name?: string
           purpose?: string | null
           user_id?: string
