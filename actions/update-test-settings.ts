@@ -29,7 +29,7 @@ export const updateTestSettings = async (
       message: testUpdateError.message,
     };
 
-  revalidatePath(`/dashboard/tests/${testId}`);
+  revalidatePath(`/dashboard/tests/${testId}`, "page");
 
   return {
     status: "success",
