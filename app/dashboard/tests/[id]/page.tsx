@@ -35,18 +35,7 @@ export default async function TestsPage({
     <>
       <div className="flex items-center justify-between">
         <h1 className="text-lg font-semibold md:text-2xl">
-          {data[0].is_on ? (
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-            </span>
-          ) : (
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-            </span>
-          )}
-          <span className="pl-3">{data[0].name}</span>
+          <span>{data[0].name}</span>
         </h1>
         <Link
           href={`/dashboard/tests/${params.id}/settings`}
@@ -87,13 +76,30 @@ export default async function TestsPage({
 
       <div className="space-y-5">
         <div className="space-y-2">
-          <div className="font-bold text-base md:text-xl">
-            Let's start testing!
+          <div className="font-bold text-base md:text-xl flex items-center">
+            {data[0].is_on ? (
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+            ) : (
+              <span className="relative flex h-3 w-3">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
+              </span>
+            )}
+            <div className="ml-3">
+              {data[0].is_on
+                ? "Test is currently underway"
+                : "Let's start testing!"}
+            </div>
           </div>
-          <div className="text-muted-foreground">
-            When you click the button below, we're gonna generate 2 texts for
-            your CTA button.
-          </div>
+          {!data[0].is_on && (
+            <div className="text-muted-foreground">
+              When you click the button below, we're gonna generate 2 texts for
+              your CTA button.
+            </div>
+          )}
         </div>
         {data[0].is_on ? (
           <PauseTestForm testId={data[0].id} />
