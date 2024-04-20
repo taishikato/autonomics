@@ -12,7 +12,7 @@ export default async function TestsPage({
   const supabase = createClient();
   const { data, error: fetchTestError } = await supabase
     .from("tests")
-    .select("name, description, patterns (is_default, text)")
+    .select("name, description, purpose, patterns (is_default, text)")
     .match({
       id: params.id,
     });
@@ -50,6 +50,17 @@ export default async function TestsPage({
           {data[0].description && data[0].description.length > 0
             ? data[0].description
             : "No description"}
+        </div>
+      </div>
+
+      <div className="space-y-2">
+        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+          Purpose
+        </div>
+        <div>
+          {data[0].purpose && data[0].purpose.length > 0
+            ? data[0].purpose
+            : "No purpose for this test yet"}
         </div>
       </div>
     </>
