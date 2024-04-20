@@ -17,7 +17,8 @@ export default async function DashboardPage() {
   const { data: tests, error } = await supabase
     .from("tests")
     .select("id, name")
-    .match({ user_id: user.id });
+    .match({ user_id: user.id })
+    .order("created_at", { ascending: false });
 
   if (error) {
     toast.error(error.message);
@@ -30,7 +31,17 @@ export default async function DashboardPage() {
         <h1 className="text-lg font-semibold md:text-2xl">Dashboard</h1>
       </div>
       {tests.length > 0 ? (
-        <TestListTable tests={tests} />
+        <>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="mt-4 self-start mb-4">Add Test</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <CreateTestForm />
+            </DialogContent>
+          </Dialog>
+          <TestListTable tests={tests} />
+        </>
       ) : (
         <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
           <div className="flex flex-col items-center gap-1 text-center">

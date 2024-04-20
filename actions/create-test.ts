@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
+import { revalidatePath } from "next/cache";
 
 export const createTest = async (formData: FormData) => {
   const name = formData.get("name") as string | null;
@@ -24,6 +25,8 @@ export const createTest = async (formData: FormData) => {
       status: "error",
       message: testInsertError.message,
     };
+
+  revalidatePath("/dashboard");
 
   return {
     status: "success",
