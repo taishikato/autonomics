@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { Pencil } from "lucide-react";
+import { Pencil, CircleCheck, CircleAlert } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { StartTestForm } from "./_components/start-test-form";
@@ -13,6 +13,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Separator } from "@/components/ui/separator";
+import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 export default async function TestsPage({
   params,
@@ -20,6 +23,12 @@ export default async function TestsPage({
   params: { id: string };
 }) {
   const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
   const { data, error: fetchTestError } = await supabase
     .from("tests")
     .select(
@@ -30,6 +39,20 @@ export default async function TestsPage({
     });
 
   if (fetchTestError) redirect("/dashboard");
+
+  const { data: projectData, error: fetchProjectError } = await supabase
+    .from("projects")
+    .select("website_description")
+    .match({
+      user_id: user.id,
+    });
+
+  if (fetchProjectError) redirect("/dashboard");
+
+  if (projectData.length === 0) {
+    toast.error("You need to set the description for your website");
+    redirect("/dashboard");
+  }
 
   return (
     <>
@@ -74,31 +97,72 @@ export default async function TestsPage({
         </div>
       </div>
 
+      <Separator className="my-4" />
+
       <div className="space-y-5">
         <div className="space-y-2">
-          <div className="font-bold text-base md:text-xl flex items-center">
-            {data[0].is_on ? (
+          <div className="font-bold text-base md:text-xl flex items-center gap-x-3">
+            {data[0].is_on && (
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
               </span>
-            ) : (
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span>
-              </span>
             )}
-            <div className="ml-3">
+
+            <div>
               {data[0].is_on
                 ? "Test is currently underway"
                 : "Let's start testing!"}
             </div>
           </div>
           {!data[0].is_on && (
-            <div className="text-muted-foreground">
-              When you click the button below, we're gonna generate 2 texts for
-              your CTA button.
-            </div>
+            <>
+              <div className="space-y-1">
+                {data[0].purpose && data[0].purpose.length > 0 ? (
+                  <div className="flex items-center">
+                    <CircleCheck className="size-4 mr-2 text-green-500" />
+                    <span className="text-sm">
+                      You set the purpose of this CTA button
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <CircleAlert className="size-4 mr-2 text-yellow-500" />
+                    <span className="text-sm">
+                      You need to set the purpose of this CTA button
+                    </span>
+                  </div>
+                )}
+
+                {projectData.length > 0 &&
+                projectData[0].website_description &&
+                projectData[0].website_description.length > 0 ? (
+                  <div className="flex items-center">
+                    <CircleCheck className="size-4 mr-2 text-green-500" />
+                    <span className="text-sm">
+                      You set the description for your website
+                    </span>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <CircleAlert className="size-4 mr-2 text-yellow-500" />
+                    <span className="text-sm">
+                      You need to set the description for your website
+                    </span>
+                    <Link
+                      href="/dashboard"
+                      className={cn(buttonVariants({ size: "sm" }), "ml-5")}
+                    >
+                      Set the description
+                    </Link>
+                  </div>
+                )}
+              </div>
+              <div className="text-muted-foreground">
+                When you click the button below, we're gonna generate 2 texts
+                for your CTA button.
+              </div>
+            </>
           )}
         </div>
         {data[0].is_on ? (
