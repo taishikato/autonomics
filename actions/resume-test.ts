@@ -3,19 +3,19 @@
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { revalidatePath } from "next/cache";
 
-export const pauseTest = async (testId: string) => {
+export const resumeTest = async (testId: string) => {
   const supabase = createClient();
-  const { error: testPauseError } = await supabase
+  const { error: testResumeError } = await supabase
     .from("tests")
     .update({
-      is_on: false,
+      is_on: true,
     })
     .match({ id: testId });
 
-  if (testPauseError) {
+  if (testResumeError) {
     return {
       status: "error",
-      message: testPauseError.message,
+      message: testResumeError.message,
     };
   }
 

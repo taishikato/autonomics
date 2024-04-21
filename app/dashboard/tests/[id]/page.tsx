@@ -16,6 +16,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { ResumeTestForm } from "./_components/resume-test-form";
 
 export default async function TestsPage({
   params,
@@ -54,7 +55,7 @@ export default async function TestsPage({
     redirect("/dashboard");
   }
 
-  const isPurposeSet = Boolean(data[0].purpose && data[0].purpose.length);
+  const isPurposeSet = Boolean(data[0].purpose && data[0].purpose.length > 0);
   const isWebsiteDescriptionSet = Boolean(
     projectData.length > 0 &&
       projectData[0].website_description &&
@@ -186,13 +187,16 @@ export default async function TestsPage({
           data[0].purpose.length > 0 &&
           projectData.length > 0 &&
           projectData[0].website_description &&
-          projectData[0].website_description.length > 0 && (
+          projectData[0].website_description.length > 0 &&
+          (data[0].patterns.length > 0 ? (
+            <ResumeTestForm testId={data[0].id} />
+          ) : (
             <StartTestForm
               testId={data[0].id}
               purpose={data[0].purpose}
               websiteDescription={projectData[0].website_description}
             />
-          )
+          ))
         )}
       </div>
       {data[0].patterns.length > 0 && (
