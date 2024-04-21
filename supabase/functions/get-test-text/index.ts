@@ -7,14 +7,36 @@
 
 console.log("Hello from Functions!")
 
-Deno.serve(async (req) => {
-  const { name } = await req.json()
-  const data = {
-    message: `Hello ${name}!`,
+const randomChoice = () => Math.random() < 0.5 ? 0 : 1;
+
+type Data = {
+    id: string
+    text: string
+    test_id: string
   }
 
+import { supabaseAdmin } from "../_shared/supabaseAdmin.ts"
+
+Deno.serve(async (req) => {
+  const { testId } = await req.json()
+
+  // get patterns for the test
+  const { data } = await supabaseAdmin.from("patterns").select("id, text").match({
+    test_id: testId,
+    is_active: true
+  })
+
+  // pick one
+  const patternToReturn = data[randomChoice()]
+
+  // count up show count for this pattern
+  const { data: d, error: e } = await supabaseAdmin.rpc("increment_pattern_show_count", {
+    x: 1,
+    patternid: patternToReturn.id
+  });
+
   return new Response(
-    JSON.stringify(data),
+    JSON.stringify(patternToReturn),
     { headers: { "Content-Type": "application/json" } },
   )
 })
