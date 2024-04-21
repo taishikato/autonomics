@@ -14,7 +14,7 @@ const openai = new OpenAI({
 });
 
 const defaultSystemPrompt =
-  "You are a product manager for SaaS software with 10 years of experience. You will be provided with a product description and the purpose of teh CTA button on the landing page, and your task is to generate a text for the CTA button. Make an answer concise. Return ONLY the answer.";
+  "You are a product manager for SaaS software with 10 years of experience. You will be provided with a product description and the purpose of the CTA button on the landing page, and your task is to generate a text for the CTA button for the SaaS product. Make an answer concise. Return ONLY the answer. Do NOT put exclamation mark at the end.";
 
 Deno.serve(async (req) => {
   try {
@@ -56,10 +56,16 @@ Deno.serve(async (req) => {
         content: query,
       }],
       model: "gpt-4-turbo",
+      // model: "gpt-3.5-turbo-0125",
       stream: false,
     });
 
     const reply = chatCompletion.choices[0].message.content;
+
+    await supabaseAdmin.from("patterns").insert({
+      text: reply,
+      test_id: testId,
+    });
 
     return new Response(
       JSON.stringify({ status: "success", reply }),
