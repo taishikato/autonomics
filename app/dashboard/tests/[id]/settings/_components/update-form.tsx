@@ -18,7 +18,6 @@ type TestWithPatterns = {
   purpose: string | null;
   patterns: {
     id: string;
-    is_default: boolean;
     text: string | null;
   }[];
 };

@@ -14,7 +14,7 @@ export default async function TestsIdSettingsPage({
 
   const testWithPatternsQuery = supabase
     .from("tests")
-    .select("id, name, description, purpose, patterns (id, is_default, text)")
+    .select("id, name, description, purpose, patterns (id, text)")
     .match({
       id: params.id,
     });
