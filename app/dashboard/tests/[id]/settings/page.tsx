@@ -4,6 +4,7 @@ import { UpdateForm } from "./_components/update-form";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { MoveLeft } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default async function TestsIdSettingsPage({
   params,
@@ -30,7 +31,7 @@ export default async function TestsIdSettingsPage({
       </h1>
       <Link
         href={`/dashboard/tests/${params.id}`}
-        className={buttonVariants({ variant: "ghost" })}
+        className={cn(buttonVariants({ variant: "ghost" }), "mb-8 md:mb-3")}
       >
         <MoveLeft className="size-4 mr-2" />
         Go back
