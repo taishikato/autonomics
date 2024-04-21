@@ -23,6 +23,7 @@
     "clsx": "^2.1.0",
     "framer-motion": "^11.1.7",
     "geist": "^1.2.1",
+    "highlight.js": "^11.9.0",
     "lucide-react": "^0.372.0",
     "next": "latest",
     "next-themes": "^0.3.0",
