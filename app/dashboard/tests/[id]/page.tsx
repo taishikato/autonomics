@@ -23,7 +23,7 @@ export default async function TestsPage({
   const { data, error: fetchTestError } = await supabase
     .from("tests")
     .select(
-      "id, name, description, purpose, is_on, patterns (id, text, click_count)"
+      "id, name, description, purpose, is_on, patterns (id, text, display_count, click_count)"
     )
     .match({
       id: params.id,
@@ -116,6 +116,7 @@ export default async function TestsPage({
             <TableHeader>
               <TableRow>
                 <TableHead>Text</TableHead>
+                <TableHead>Display count</TableHead>
                 <TableHead>Click count</TableHead>
               </TableRow>
             </TableHeader>
@@ -126,6 +127,11 @@ export default async function TestsPage({
                     <TableCell>
                       <div className="font-lg flex items-center">
                         {pattern.text}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="font-lg flex items-center">
+                        {pattern.display_count}
                       </div>
                     </TableCell>
                     <TableCell>
