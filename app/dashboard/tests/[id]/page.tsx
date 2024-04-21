@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Pencil, CircleCheck, CircleAlert } from "lucide-react";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { StartTestForm } from "./_components/start-test-form";
 import { PauseTestForm } from "./_components/pause-test-form";
@@ -17,6 +17,12 @@ import { Separator } from "@/components/ui/separator";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { ResumeTestForm } from "./_components/resume-test-form";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export default async function TestsPage({
   params,
@@ -172,13 +178,46 @@ export default async function TestsPage({
               </div>
 
               {isPurposeSet && isWebsiteDescriptionSet && (
-                <div className="text-muted-foreground">
-                  When you click the button below, we're gonna generate 2 texts
-                  for your CTA button.
-                </div>
+                <>
+                  <div className="text-muted-foreground">
+                    When you click the button below, we're gonna generate 2
+                    texts for your CTA button.
+                  </div>
+                </>
               )}
             </>
           )}
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1" className="border-b-0">
+              <AccordionTrigger
+                className={cn(
+                  buttonVariants({ variant: "ghost" }),
+                  "justify-start gap-x-3 md:w-1/2"
+                )}
+              >
+                How does it work?
+              </AccordionTrigger>
+              <AccordionContent className="p-3 bg-muted rounded-md">
+                <div>
+                  <ul>
+                    <li>
+                      - When activating the test for the first time, AI
+                      automatically generates two texts for the CTA button and
+                      initiates the test.
+                    </li>
+                    <li>- Every seven days, AI generates new text.</li>
+                    <li>
+                      - Automatically replaces the text with the lower CTR from
+                      the previous test.
+                    </li>
+                    <li>- Automatically starts the test with the new text.</li>
+                  </ul>
+
+                  <div>How to get a text for your CTA button?</div>
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
         {data[0].is_on ? (
           <PauseTestForm testId={data[0].id} />
