@@ -186,7 +186,11 @@ export default async function TestsPage({
           projectData.length > 0 &&
           projectData[0].website_description &&
           projectData[0].website_description.length > 0 && (
-            <StartTestForm testId={data[0].id} />
+            <StartTestForm
+              testId={data[0].id}
+              purpose={data[0].purpose}
+              websiteDescription={projectData[0].website_description}
+            />
           )
         )}
       </div>
