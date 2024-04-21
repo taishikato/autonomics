@@ -131,6 +131,12 @@ export default async function TestsPage({
                     <span className="text-sm">
                       You need to set the purpose of this CTA button
                     </span>
+                    <Link
+                      href={`/dashboard/tests/${params.id}/settings`}
+                      className={cn(buttonVariants({ size: "sm" }), "ml-5")}
+                    >
+                      Set the purpose
+                    </Link>
                   </div>
                 )}
 
@@ -158,17 +164,30 @@ export default async function TestsPage({
                   </div>
                 )}
               </div>
-              <div className="text-muted-foreground">
-                When you click the button below, we're gonna generate 2 texts
-                for your CTA button.
-              </div>
+
+              {data[0].purpose &&
+                data[0].purpose.length > 0 &&
+                projectData.length > 0 &&
+                projectData[0].website_description &&
+                projectData[0].website_description.length > 0 && (
+                  <div className="text-muted-foreground">
+                    When you click the button below, we're gonna generate 2
+                    texts for your CTA button.
+                  </div>
+                )}
             </>
           )}
         </div>
         {data[0].is_on ? (
           <PauseTestForm testId={data[0].id} />
         ) : (
-          <StartTestForm testId={data[0].id} />
+          data[0].purpose &&
+          data[0].purpose.length > 0 &&
+          projectData.length > 0 &&
+          projectData[0].website_description &&
+          projectData[0].website_description.length > 0 && (
+            <StartTestForm testId={data[0].id} />
+          )
         )}
       </div>
       {data[0].patterns.length > 0 && (
