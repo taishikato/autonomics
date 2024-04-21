@@ -9,10 +9,29 @@ import { supabaseAdmin } from "../_shared/supabaseAdmin.ts";
 
 Deno.serve(async (req) => {
   try {
-    const { patternId } = await req.json();
+    const { testId, patternId } = await req.json() as {
+      testId: string | null | undefined;
+      patternId: string | null | undefined;
+    };
 
-    if (!patternId) {
-      throw new Error("patternId can't be empty, null or undefined");
+    if (!patternId || !testId) {
+      throw new Error("patternId and testId can't be empty, null or undefined");
+    }
+
+    // check if this test is on or paused
+    const { data: testData } = await supabaseAdmin.from("tests").select("is_on")
+      .match({
+        id: testId,
+      }).single();
+
+    if (!testData?.is_on) {
+      return new Response(
+        JSON.stringify({
+          status: "success",
+          message: "This test is not active.",
+        }),
+        { headers: { "Content-Type": "application/json" } },
+      );
     }
 
     const { error } = await supabaseAdmin.rpc("increment_pattern_click_count", {
