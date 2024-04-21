@@ -210,6 +210,7 @@ export default async function TestsPage({
                 <TableHead>Text</TableHead>
                 <TableHead>Display count</TableHead>
                 <TableHead>Click count</TableHead>
+                <TableHead>ID</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -217,18 +218,23 @@ export default async function TestsPage({
                 return (
                   <TableRow key={pattern.id}>
                     <TableCell>
-                      <div className="font-lg flex items-center">
-                        {pattern.text}
-                      </div>
+                      <div className="flex items-center">{pattern.text}</div>
                     </TableCell>
                     <TableCell>
-                      <div className="font-lg flex items-center">
+                      <div className="flex items-center">
                         {pattern.display_count}
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="font-lg flex items-center">
+                      <div className="flex items-center">
                         {pattern.click_count}
+                      </div>
+                    </TableCell>
+                    <TableCell className="self-start">
+                      <div className="flex items-center self-start text-sm rounded-full">
+                        <div className="bg-accent px-2 py-1 rounded-full">
+                          {pattern.id}
+                        </div>
                       </div>
                     </TableCell>
                   </TableRow>
