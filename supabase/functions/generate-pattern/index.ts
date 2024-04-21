@@ -13,24 +13,48 @@ const openai = new OpenAI({
   apiKey: apiKey,
 });
 
+const defaultSystemPrompt =
+  "You are a product manager for SaaS software with 10 years of experience. You will be provided with a product description and the purpose of teh CTA button on the landing page, and your task is to generate a text for the CTA button. Make an answer concise. Return ONLY the answer.";
+
 Deno.serve(async (req) => {
   try {
     const { testId, query } = await req.json();
 
-    // generate pattern text
-    // Get the prompt from the query string
+    // fetch existing patterns
+    const { data: existingPatterns, error: fetchExistingPatternsError } =
+      await supabaseAdmin.from("patterns")
+        .select("text").match({
+          test_id: testId,
+        });
 
-    // Documentation here: https://github.com/openai/openai-node
+    if (fetchExistingPatternsError) {
+      throw new Error(fetchExistingPatternsError.message);
+    }
+
+    const existingPatternsText = existingPatterns.reduce((acc, current) => {
+      if (acc === null) {
+        acc = current.text;
+      } else {
+        // @ts-ignore shut up
+        acc += `,${current.text}`;
+      }
+
+      return acc;
+    }, null);
+
+    const systemPrompt = existingPatternsText
+      ? `${defaultSystemPrompt} Do NOT generate text for CTA buttons that is the same as existing ones. Existing texts: ${existingPatternsText}`
+      : defaultSystemPrompt;
+
+    // generate pattern text
     const chatCompletion = await openai.chat.completions.create({
       messages: [{
         role: "system",
-        content:
-          "You are a product manager for SaaS software with 10 years of experience. You will be provided with a product description and the purpose of teh CTA button on the landing page, and your task is to generate a text for the CTA button. Make an answer concise. Return ONLY the answer.",
+        content: systemPrompt,
       }, {
         role: "user",
         content: query,
       }],
-      // Choose model from here: https://platform.openai.com/docs/models
       model: "gpt-4-turbo",
       stream: false,
     });
