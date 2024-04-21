@@ -4,7 +4,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "genType": "bunx supabase gen types typescript --project-id 'tlxtyjxdiaoktvcwemzb' --schema public > types/supabase.ts"
+    "genType": "bunx supabase gen types typescript --project-id 'tlxtyjxdiaoktvcwemzb' --schema public > types/supabase.ts",
+    "deployFunctions": "supabase functions deploy get-test-text --no-verify-jwt"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.5",
