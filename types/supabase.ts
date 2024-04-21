@@ -13,21 +13,27 @@ export type Database = {
         Row: {
           click_count: number | null
           created_at: string
+          display_count: number
           id: string
+          is_active: boolean | null
           test_id: string | null
           text: string | null
         }
         Insert: {
           click_count?: number | null
           created_at?: string
+          display_count?: number
           id?: string
+          is_active?: boolean | null
           test_id?: string | null
           text?: string | null
         }
         Update: {
           click_count?: number | null
           created_at?: string
+          display_count?: number
           id?: string
+          is_active?: boolean | null
           test_id?: string | null
           text?: string | null
         }
@@ -134,7 +140,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      increment_pattern_click_count: {
+        Args: {
+          x: number
+          patternid: string
+        }
+        Returns: undefined
+      }
+      increment_pattern_show_count: {
+        Args: {
+          x: number
+          patternid: string
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never
