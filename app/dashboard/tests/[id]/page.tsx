@@ -54,6 +54,13 @@ export default async function TestsPage({
     redirect("/dashboard");
   }
 
+  const isPurposeSet = Boolean(data[0].purpose && data[0].purpose.length);
+  const isWebsiteDescriptionSet = Boolean(
+    projectData.length > 0 &&
+      projectData[0].website_description &&
+      projectData[0].website_description.length > 0
+  );
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -118,7 +125,7 @@ export default async function TestsPage({
           {!data[0].is_on && (
             <>
               <div className="space-y-1">
-                {data[0].purpose && data[0].purpose.length > 0 ? (
+                {isPurposeSet ? (
                   <div className="flex items-center">
                     <CircleCheck className="size-4 mr-2 text-green-500" />
                     <span className="text-sm">
@@ -140,9 +147,7 @@ export default async function TestsPage({
                   </div>
                 )}
 
-                {projectData.length > 0 &&
-                projectData[0].website_description &&
-                projectData[0].website_description.length > 0 ? (
+                {isWebsiteDescriptionSet ? (
                   <div className="flex items-center">
                     <CircleCheck className="size-4 mr-2 text-green-500" />
                     <span className="text-sm">
@@ -165,16 +170,12 @@ export default async function TestsPage({
                 )}
               </div>
 
-              {data[0].purpose &&
-                data[0].purpose.length > 0 &&
-                projectData.length > 0 &&
-                projectData[0].website_description &&
-                projectData[0].website_description.length > 0 && (
-                  <div className="text-muted-foreground">
-                    When you click the button below, we're gonna generate 2
-                    texts for your CTA button.
-                  </div>
-                )}
+              {isPurposeSet && isWebsiteDescriptionSet && (
+                <div className="text-muted-foreground">
+                  When you click the button below, we're gonna generate 2 texts
+                  for your CTA button.
+                </div>
+              )}
             </>
           )}
         </div>
