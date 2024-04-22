@@ -60,7 +60,7 @@ export const UpdateForm = ({ test }: { test: TestWithPatterns }) => {
 
         <div className="space-y-2">
           <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Purpose
+            Purpose of this CTA button
           </Label>
           <Textarea
             defaultValue={test.purpose ?? ""}

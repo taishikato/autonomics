@@ -57,7 +57,7 @@ export const CreateTestForm = () => {
 
         <div className="grid grid-cols-4 items-center gap-4">
           <Label htmlFor="purpose" className="text-right">
-            Purpose*
+            Purpose of this CTA button*
           </Label>
           <Textarea
             id="purpose"

@@ -96,12 +96,12 @@ export default async function TestsPage({
 
         <div className="space-y-2">
           <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-            Purpose
+            Purpose of this CTA button
           </div>
           <div>
             {data[0].purpose && data[0].purpose.length > 0
               ? data[0].purpose
-              : "No purpose for this test yet"}
+              : "No purpose for this CTA yet"}
           </div>
         </div>
       </div>
