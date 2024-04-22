@@ -16,7 +16,7 @@ import { toast } from "sonner";
 export const SaveProjectForm = ({
   project,
 }: {
-  project: Pick<Tables<"projects">, "website_description">;
+  project: Pick<Tables<"projects">, "website_description"> | null;
 }) => {
   return (
     <form
@@ -51,7 +51,7 @@ export const SaveProjectForm = ({
         required
         name="description"
         placeholder="My website is a SaaS app to help customers sell their digital products faster."
-        defaultValue={project.website_description ?? ""}
+        defaultValue={project?.website_description ?? ""}
       />
       <SaveProjectButton />
     </form>
