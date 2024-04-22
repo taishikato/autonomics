@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CircleUser, Home, Menu, Package2 } from "lucide-react";
+import { CircleUser, Home, Menu, RefreshCcwDot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -76,7 +76,7 @@ export default async function DashboardLayout({
                     href="/dashboard"
                     className="flex items-center gap-2 text-lg font-semibold"
                   >
-                    <Package2 className="h-6 w-6" />
+                    <RefreshCcwDot className="h-6 w-6" />
                     <span className="sr-only">Acme Inc</span>
                   </Link>
                 </SheetClose>
