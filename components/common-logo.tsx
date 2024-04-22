@@ -12,7 +12,7 @@ const Logo = ({
 }) => {
   return (
     <div className={cn("flex items-center text-lg font-medium", className)}>
-      {showLogo && <RefreshCcwDot className="mr-2 h-5 w-5 text-gray-900" />}
+      {showLogo && <RefreshCcwDot className="mr-2 h-5 w-5 text-foreground" />}
       {APP_NAME}
     </div>
   );

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createAdminClient } from "@/utils/supabase/createAdminSupabaseClient";
 import { Hero } from "./_components/hero";
 import { Footer } from "./_components/footer";
+import { Header } from "./_components/header";
 
 export default async function Index() {
   const supabase = createClient();
@@ -34,6 +35,7 @@ export default async function Index() {
 
   return (
     <>
+      <Header />
       <Hero />
       <Footer className="mt-12" />
     </>
