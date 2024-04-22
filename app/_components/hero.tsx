@@ -5,10 +5,12 @@ import { BorderBeam } from "@/components/magicui/border-beam";
 import RetroGrid from "@/components/magicui/retro-grid";
 import { motion, useInView } from "framer-motion";
 import { ChevronRight } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
 import { useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AppScreenshot from "../_assets/app-screenshot.webp";
+import { APP_NAME } from "@/utils/consts";
 
 export const Hero = () => {
   const fadeInRef = useRef(null);
@@ -62,39 +64,74 @@ export const Hero = () => {
                   type: "spring",
                 }}
               >
-                Magic UI is a curated collection of React + Tailwind CSS +
-                Framer Motion components
+                {APP_NAME} automatically optimizes the text for your landing
+                page's CTA button. In the future, our goal is to create websites
+                that automatically repair and update themselves.
               </motion.p>
 
-              <motion.div
-                animate={fadeInInView ? "animate" : "initial"}
-                variants={fadeUpVariants}
-                className="flex flex-col gap-4 lg:flex-row"
-                initial={false}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3,
-                  ease: [0.21, 0.47, 0.32, 0.98],
-                  type: "spring",
-                }}
-              >
-                <Link
-                  href="/login"
-                  className={cn(
-                    // colors
-                    "bg-black  text-white shadow hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90",
-
-                    // layout
-                    "group relative inline-flex h-9 w-full items-center justify-center gap-2 overflow-hidden whitespace-pre rounded-md px-4 py-2 text-base font-semibold tracking-tighter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 md:flex",
-
-                    // animation
-                    "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
-                  )}
+              <div className="flex items-center justify-center gap-x-8">
+                <motion.div
+                  animate={fadeInInView ? "animate" : "initial"}
+                  variants={fadeUpVariants}
+                  className="flex flex-col gap-4 lg:flex-row"
+                  initial={false}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.21, 0.47, 0.32, 0.98],
+                    type: "spring",
+                  }}
                 >
-                  Sign up / Sign in
-                  <ChevronRight className="size-4 translate-x-0 transition-all duration-300 ease-out group-hover:translate-x-1" />
-                </Link>
-              </motion.div>
+                  <Link
+                    href="/login"
+                    className={cn(
+                      // colors
+                      "bg-black  text-white shadow hover:bg-black/90 dark:bg-white dark:text-black dark:hover:bg-white/90",
+
+                      // layout
+                      "group relative inline-flex h-9 w-full items-center justify-center gap-2 overflow-hidden whitespace-pre rounded-md px-4 py-2 text-base font-semibold tracking-tighter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 md:flex",
+
+                      // animation
+                      "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
+                    )}
+                  >
+                    Sign up / Sign in
+                    <ChevronRight className="size-4 translate-x-0 transition-all duration-300 ease-out group-hover:translate-x-1" />
+                  </Link>
+                </motion.div>
+
+                <motion.div
+                  animate={fadeInInView ? "animate" : "initial"}
+                  variants={fadeUpVariants}
+                  className="flex flex-col gap-4 lg:flex-row"
+                  initial={false}
+                  transition={{
+                    duration: 0.6,
+                    delay: 0.3,
+                    ease: [0.21, 0.47, 0.32, 0.98],
+                    type: "spring",
+                  }}
+                >
+                  <a
+                    href="https://github.com/taishikato/autonomics"
+                    target="_blank"
+                    className={cn(
+                      // colors
+                      "bg-black  text-white shadow hover:bg-black/90 dark:bg-secondary dark:hover:bg-secondary/80 dark:text-secondary-foreground",
+
+                      // layout
+                      "group relative inline-flex h-9 w-full items-center justify-center gap-2 overflow-hidden whitespace-pre rounded-md px-4 py-2 text-base font-semibold tracking-tighter focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 md:flex",
+
+                      // animation
+                      "transform-gpu ring-offset-current transition-all duration-300 ease-out hover:ring-2 hover:ring-primary hover:ring-offset-2"
+                    )}
+                  >
+                    <FaGithub className="size-4" />
+                    GitHub
+                    <ChevronRight className="size-4 translate-x-0 transition-all duration-300 ease-out group-hover:translate-x-1" />
+                  </a>
+                </motion.div>
+              </div>
             </div>
           </div>
 
