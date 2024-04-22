@@ -9,6 +9,11 @@ if (!PATTERN_GENERATE_API) {
   throw new Error("process.env.PATTERN_GENERATE_API is not defined");
 }
 
+const API_SECRET_TOKEN = process.env.API_SECRET_TOKEN;
+if (!API_SECRET_TOKEN) {
+  throw new Error("process.env.API_SECRET_TOKEN is not defined");
+}
+
 export const startTest = async (
   testId: string,
   purpose: string,
@@ -17,11 +22,14 @@ export const startTest = async (
   // generate 2 patterns
   const generatedPatterns = [];
   for (let i = 0; i < 2; i++) {
-    const { data } = await axios.post(PATTERN_GENERATE_API, {
-      testId,
-      query:
-        `Product description: ${websiteDescription}. Purpose of the CTA button: ${purpose}. CTA Button: `,
-    });
+    const { data } = await axios.post(
+      `${PATTERN_GENERATE_API}?secret_token=${API_SECRET_TOKEN}`,
+      {
+        testId,
+        query:
+          `Product description: ${websiteDescription}. Purpose of the CTA button: ${purpose}. CTA Button: `,
+      },
+    );
 
     generatedPatterns.push(data);
   }
