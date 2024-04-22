@@ -1,12 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-// import { BorderBeam } from "@/components/magicui/border-beam";
+import { BorderBeam } from "@/components/magicui/border-beam";
 import RetroGrid from "@/components/magicui/retro-grid";
 import { motion, useInView } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import AppScreenshot from "../_assets/app-screenshot.webp";
 
 export const Hero = () => {
   const fadeInRef = useRef(null);
@@ -96,7 +98,7 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* <motion.div
+          <motion.div
             animate={fadeInInView ? "animate" : "initial"}
             variants={fadeUpVariants}
             initial={false}
@@ -120,16 +122,16 @@ export const Hero = () => {
               )}
             />
 
-            <img
-              src="/dashboard-light.png"
-              className="relative block h-full w-full rounded-xl dark:hidden"
-            />
-            <img
-              src="/dashboard-dark.png"
-              className="relative hidden h-full w-full rounded-xl dark:block"
+            <Image
+              src={AppScreenshot.src}
+              width={AppScreenshot.width}
+              height={AppScreenshot.height}
+              alt="App screenshot"
+              role="img"
+              className="w-full"
             />
             <BorderBeam />
-          </motion.div> */}
+          </motion.div>
         </div>
       </div>
     </section>
