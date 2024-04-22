@@ -26,3 +26,7 @@ It comes in two parts:
 Currently, Autonomics does one simple thing:
 
 It continuously automates A/B testing of CTA buttons using AI. Every seven days after starting an A/B test, the AI compares the CTR (Click-Through Rate) of the two current CTA button texts being used. It automatically excludes the text with the lower CTR from the test, creates a new text, and begins a new A/B test with the text that had the higher CTR in the previous test.
+
+## Demo
+
+You can check the quick demo here: https://youtu.be/lVsIGvQyIwM?si=XDYBdsN1MNuFT877
