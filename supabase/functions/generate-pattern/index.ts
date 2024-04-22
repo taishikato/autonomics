@@ -19,6 +19,12 @@ const defaultSystemPrompt =
 Deno.serve(async (req) => {
   try {
     const { testId, query } = await req.json();
+    const params = new URL(req.url).searchParams;
+    const secretToken = params.get("secret_token") ?? "";
+
+    if (secretToken !== Deno.env.get("API_SECRET_TOKEN")) {
+      throw new Error("invalid secret_token");
+    }
 
     // fetch existing patterns
     const { data: existingPatterns, error: fetchExistingPatternsError } =
@@ -31,16 +37,19 @@ Deno.serve(async (req) => {
       throw new Error(fetchExistingPatternsError.message);
     }
 
-    const existingPatternsText = existingPatterns.reduce((acc, current) => {
-      if (acc === null) {
-        acc = current.text;
-      } else {
-        // @ts-ignore shut up
-        acc += `,${current.text}`;
-      }
+    const existingPatternsText = existingPatterns.reduce(
+      (acc: string | null, current: { text: string }) => {
+        if (acc === null) {
+          acc = current.text;
+        } else {
+          // @ts-ignore shut up
+          acc += `,${current.text}`;
+        }
 
-      return acc;
-    }, null);
+        return acc;
+      },
+      null,
+    );
 
     const systemPrompt = existingPatternsText
       ? `${defaultSystemPrompt} Do NOT generate text for CTA buttons that is the same as existing ones. Existing texts: ${existingPatternsText}`
