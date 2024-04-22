@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/createServerSupabaseClient";
 import { redirect } from "next/navigation";
 import { createAdminClient } from "@/utils/supabase/createAdminSupabaseClient";
 import { Hero } from "./_components/hero";
+import { Footer } from "./_components/footer";
 
 export default async function Index() {
   const supabase = createClient();
@@ -31,5 +32,10 @@ export default async function Index() {
     return redirect("/dashboard");
   }
 
-  return <Hero />;
+  return (
+    <>
+      <Hero />
+      <Footer className="mt-12" />
+    </>
+  );
 }
