@@ -5,6 +5,8 @@
 // Setup type definitions for built-in Supabase Runtime APIs
 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 
+import { corsHeaders } from "../_shared/cors.ts";
+
 const randomChoice = () => Math.random() < 0.5 ? 0 : 1;
 
 type Data = {
@@ -17,6 +19,11 @@ import { supabaseAdmin } from "../_shared/supabaseAdmin.ts";
 
 Deno.serve(async (req) => {
   try {
+    // This is needed if you're planning to invoke your function from a browser.
+    if (req.method === "OPTIONS") {
+      return new Response("ok", { headers: corsHeaders });
+    }
+
     const { testId } = await req.json();
 
     // get patterns for the test
