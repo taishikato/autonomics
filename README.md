@@ -1,5 +1,5 @@
 <a href="https://autonomics.vercel.app/">
-  <img alt="Autonomics" src="https://github.com/taishikato/autonomics/assets/980588/29f1b600-791c-4909-8e42-7d8d5fc4d34e">
+  <img alt="Autonomics" src="https://github.com/taishikato/autonomics/assets/980588/57c2b6ac-2782-4f0a-84aa-7dd7c4a25d77">
 </a>
 
 
