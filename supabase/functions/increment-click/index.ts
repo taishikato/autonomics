@@ -49,7 +49,7 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({ status: "success" }),
-      { headers: { "Content-Type": "application/json" } },
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
     const errorMessage = (err as Error).message;
@@ -58,7 +58,10 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({ status: "error", message: errorMessage }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   }
 });

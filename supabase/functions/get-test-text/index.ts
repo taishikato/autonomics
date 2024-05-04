@@ -6,16 +6,9 @@
 /// <reference types="https://esm.sh/@supabase/functions-js/src/edge-runtime.d.ts" />
 
 import { corsHeaders } from "../_shared/cors.ts";
+import { supabaseAdmin } from "../_shared/supabaseAdmin.ts";
 
 const randomChoice = () => Math.random() < 0.5 ? 0 : 1;
-
-type Data = {
-  id: string;
-  text: string;
-  test_id: string;
-};
-
-import { supabaseAdmin } from "../_shared/supabaseAdmin.ts";
 
 Deno.serve(async (req) => {
   try {
@@ -41,16 +34,20 @@ Deno.serve(async (req) => {
     const patternToReturn = data[randomChoice()];
 
     // count up show count for this pattern
-    supabaseAdmin.rpc("increment_pattern_show_count", {
-      x: 1,
-      patternid: patternToReturn.id,
-    }).then((res) => {
-      console.log(res);
-    });
+    try {
+      supabaseAdmin.rpc("increment_pattern_display_count", {
+        x: 1,
+        patternid: patternToReturn.id,
+      }).then((res) => {
+        if (res.error) console.error(res.error.message);
+      });
+    } catch (err) {
+      console.error("increment_pattern_display_count error", err);
+    }
 
     return new Response(
       JSON.stringify(patternToReturn),
-      { headers: { "Content-Type": "application/json" } },
+      { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
     const errorMessage = (err as Error).message;
@@ -59,7 +56,10 @@ Deno.serve(async (req) => {
 
     return new Response(
       JSON.stringify({ status: "error", message: errorMessage }),
-      { status: 500, headers: { "Content-Type": "application/json" } },
+      {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      },
     );
   }
 });
