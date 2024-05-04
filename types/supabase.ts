@@ -147,6 +147,13 @@ export type Database = {
         }
         Returns: undefined
       }
+      increment_pattern_display_count: {
+        Args: {
+          x: number
+          patternid: string
+        }
+        Returns: undefined
+      }
       increment_pattern_show_count: {
         Args: {
           x: number
