@@ -49,7 +49,7 @@ export const Hero = () => {
                   type: "spring",
                 }}
               >
-                Get more convertion without extra effort
+                Get more conversion without extra effort
               </motion.h1>
 
               <motion.p
